@@ -20,3 +20,8 @@ mongoose
     console.error("Erreur connexion MongoDB:", err);
     process.exit(1);
   });
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`Serveur lancé sur http://localhost:${PORT}`);
+  });
+}

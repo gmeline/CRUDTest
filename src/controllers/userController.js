@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const User = require("../models/userModel");
 
 // Création d'un utilisateur
@@ -21,10 +22,16 @@ exports.getUser = async (req, res) => {
   }
 };
 
-// Récupération d'un utilisateur via son ID
+// ✅ Récupération d'un utilisateur via son ID
 exports.getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "ID invalide" });
+  }
+
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(id);
     if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
     res.json(user);
   } catch (err) {
@@ -32,10 +39,16 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-// Modification d'un utilisateur
+// ✅ Modification d'un utilisateur
 exports.updateUser = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "ID invalide" });
+  }
+
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const user = await User.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
     });
@@ -46,12 +59,17 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// Suppression d'un utilisateur
+// ✅ Suppression d'un utilisateur
 exports.deleteUser = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: "ID invalide" });
+    }
+
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
-    res.json({ message: "Utilisateur supprimé" });
+
+    res.status(204).send();
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

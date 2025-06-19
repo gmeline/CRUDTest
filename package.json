@@ -27,5 +27,8 @@
     "globals": "^16.2.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.5.3"
+  },
+  "jest": {
+    "testTimeout": 10000
   }
 }

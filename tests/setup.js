@@ -6,6 +6,7 @@ let mongoServer;
 // Configuration avant tous les tests
 beforeAll(async () => {
   try {
+    jest.setTimeout(10000);
     // Créer une instance MongoDB en mémoire
     mongoServer = await MongoMemoryServer.create();
     const mongoUri = mongoServer.getUri();

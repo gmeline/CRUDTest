@@ -1,6 +1,6 @@
 const request = require("supertest");
-const app = require("../../app");
-const User = require("../../models/userModel");
+const app = require("../../src/app");
+const User = require("../../src/models/userModel");
 const mongoose = require("mongoose");
 require("dotenv").config();
 

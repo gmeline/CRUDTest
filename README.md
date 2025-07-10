@@ -82,3 +82,6 @@ Tu peux y tester toutes les routes CRUD.
 ├── package.json
 ├── README.md
 └── CONTRIBUTING.md
+
+##TODO
+-ajouter un script pour docker-compose
